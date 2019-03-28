@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: us.thinkincode
+---
+testFramework: junit
+sourceLanguage: java
