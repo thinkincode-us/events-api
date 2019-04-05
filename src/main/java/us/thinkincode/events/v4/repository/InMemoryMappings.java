@@ -19,5 +19,5 @@ public class InMemoryMappings {
 
     public static Map<String, Event> ACCOUNT_EVENTS = new HashMap<>();
 
-    public static Map<String, SignupUser> USERS;
+    public static Map<String, SignupUser> USERS = new HashMap<>();
 }

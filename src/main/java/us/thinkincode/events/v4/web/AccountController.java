@@ -7,9 +7,12 @@ import us.thinkincode.events.v4.domain.SignupUser;
 import us.thinkincode.events.v4.domain.User;
 import us.thinkincode.events.v4.service.IAccountService;
 
+import javax.inject.Inject;
+
 @Controller("/api/v1/account")
 public class AccountController {
 
+    @Inject
     private IAccountService accountService;
 
     @Post("/register")
