@@ -19,10 +19,15 @@ micronaut:
                 enabled: true
         intercept-url-map:
             -
-                pattern: /swagger/*
-                http-method: GET
-                access:
+              pattern: /swagger/*
+              http-method: GET
+              access:
                     - isAnonymous()
+            -
+              pattern: /api/v1/account/register
+              http-method: POST
+              access:
+                  - isAnonymous()
         token:
             jwt:
                 enabled: true

@@ -1,4 +1,4 @@
-package us.thinkincode.events.v3.security;
+package us.thinkincode.events.security;
 
 import io.micronaut.security.authentication.providers.AuthoritiesFetcher;
 import io.micronaut.security.authentication.providers.PasswordEncoder;
@@ -7,14 +7,14 @@ import io.micronaut.security.authentication.providers.UserState;
 import io.reactivex.Flowable;
 import org.reactivestreams.Publisher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import us.thinkincode.events.v3.domain.SignupUser;
+import us.thinkincode.events.v4.domain.SignupUser;
 
 import javax.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
 
 import static java.lang.System.out;
-import static us.thinkincode.events.v3.repository.InMemoryMappings.USERS;
+import static us.thinkincode.events.v4.repository.InMemoryMappings.USERS;
 
 @Singleton
 class AuthenticationService implements UserFetcher, AuthoritiesFetcher, PasswordEncoder {
