@@ -1,4 +1,4 @@
-package us.thinkincode.events.v4.web;
+package us.thinkincode.events.v1.web;
 
 import io.micronaut.context.annotation.Value;
 import io.micronaut.http.HttpResponse;
@@ -6,9 +6,9 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
-import us.thinkincode.events.v4.domain.catalog.EntityCatalogItem;
-import us.thinkincode.events.v4.domain.catalog.EventCatalogItem;
-import us.thinkincode.events.v4.service.ICatalogServices;
+import us.thinkincode.events.v1.domain.catalog.EntityCatalogItem;
+import us.thinkincode.events.v1.domain.catalog.EventCatalogItem;
+import us.thinkincode.events.v1.service.ICatalogServices;
 
 import javax.inject.Inject;
 import java.security.Principal;
@@ -21,23 +21,24 @@ public class CatalogController {
     private ICatalogServices catalogServices;
 
     @Get("/entities")
-    public HttpResponse getAllEntities(@Value("accountId") String accountId) {
+    public HttpResponse getEntities(@Value("accountId") String accountId) {
         return HttpResponse
                 .ok()
                 .body(catalogServices.getCatalogEntities(accountId));
     }
 
     @Post(uri = "/entities", consumes = MediaType.APPLICATION_JSON)
-    public HttpResponse createEntity(@Body EntityCatalogItem entity, Principal principal) {
-        var responseEntity = catalogServices.createCatalogEntity(entity, principal.getName());
+    public HttpResponse createEntity(@Value("accountId") String accountId, @Body EntityCatalogItem entity, Principal principal) {
+
+        var responseEntity = catalogServices.createCatalogEntity(accountId, entity, principal.getName());
         return HttpResponse
                 .ok()
                 .body(responseEntity);
     }
 
     @Get("/entities/{id}")
-    public HttpResponse getEntity(@Value("id") String id) {
-        var entity = catalogServices.getCatalogEntity(id);
+    public HttpResponse getEntity(@Value("accountId") String accountId, @Value("id") String id) {
+        var entity = catalogServices.getCatalogEntity(accountId, id);
 
         if (entity == null) {
             return HttpResponse.notFound();

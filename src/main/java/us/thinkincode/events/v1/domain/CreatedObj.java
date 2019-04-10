@@ -1,4 +1,4 @@
-package us.thinkincode.events.v4.domain;
+package us.thinkincode.events.v1.domain;
 
 import java.time.LocalDateTime;
 

@@ -1,13 +1,13 @@
-package us.thinkincode.events.v4.domain;
+package us.thinkincode.events.v1.domain.catalog;
 
-import us.thinkincode.events.v3.domain.Entity;
-import us.thinkincode.events.v4.domain.catalog.EntityCatalogItem;
+import us.thinkincode.events.v1.domain.CreatedObj;
+import us.thinkincode.events.v1.domain.Task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Event {
+public class EventCatalogItem {
 
     private String id;
     private String name;
@@ -15,7 +15,7 @@ public class Event {
     private List<Task> tasks;
     private CreatedObj created;
 
-    public Event(String id, String name, EntityCatalogItem entity, String createdByUsername, LocalDateTime dtCreated) {
+    public EventCatalogItem(String id, String name, EntityCatalogItem entity, String createdByUsername, LocalDateTime dtCreated) {
         this.id = id;
         this.name = name;
         this.entity = entity;

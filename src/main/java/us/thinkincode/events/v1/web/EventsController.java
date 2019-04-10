@@ -1,4 +1,4 @@
-package us.thinkincode.events.v4.web;
+package us.thinkincode.events.v1.web;
 
 import io.micronaut.context.annotation.Value;
 import io.micronaut.http.HttpResponse;
@@ -7,15 +7,17 @@ import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
-import us.thinkincode.events.dto.CreateEventRequest;
-import us.thinkincode.events.v4.domain.Event;
-import us.thinkincode.events.v4.domain.Task;
-import us.thinkincode.events.v4.service.IEventServices;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
+import us.thinkincode.events.v1.domain.Event;
+import us.thinkincode.events.v1.domain.Task;
+import us.thinkincode.events.v1.service.IEventServices;
 
 import javax.inject.Inject;
 import java.security.Principal;
 
-@Controller("/api/v1/{accountId}/events")
+@Controller("/api/v1/accounts/{accountId}/events")
+@Secured(SecurityRule.IS_AUTHENTICATED)
 public class EventsController {
 
     @Inject
@@ -38,10 +40,10 @@ public class EventsController {
     }
 
     @Get("/events/{eventId}")
-    public HttpResponse getEvent(@Value("eventId") String eventId) {
+    public HttpResponse getEvent(@Value("accountId") String accountId, @Value("eventId") String eventId) {
         return HttpResponse
                 .ok()
-                .body(eventServices.getEvent(eventId));
+                .body(eventServices.getEvent(accountId, eventId));
     }
 
     @Post(uri = "/events/{eventId}", consumes = MediaType.APPLICATION_JSON)

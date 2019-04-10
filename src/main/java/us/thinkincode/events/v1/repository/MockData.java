@@ -1,15 +1,20 @@
-package us.thinkincode.events.v4.repository;
+package us.thinkincode.events.v1.repository;
 
-import us.thinkincode.events.v4.domain.Event;
-import us.thinkincode.events.v4.domain.SignupUser;
-import us.thinkincode.events.v4.domain.catalog.EntityCatalogItem;
-import us.thinkincode.events.v4.domain.catalog.EventCatalogItem;
+import io.micronaut.context.annotation.Context;
+import us.thinkincode.events.v1.domain.Event;
+import us.thinkincode.events.v1.domain.SignupUser;
+import us.thinkincode.events.v1.domain.Task;
+import us.thinkincode.events.v1.domain.catalog.EntityCatalogItem;
+import us.thinkincode.events.v1.domain.catalog.EventCatalogItem;
+import us.thinkincode.events.v1.service.InMemoryAccountServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 
-import static us.thinkincode.events.v4.repository.InMemoryMappings.*;
+import static us.thinkincode.events.v1.repository.InMemoryMappings.*;
 
+@Context
 public class MockData {
     static {
         var createDate = LocalDateTime.of(2019, 3, 20, 11, 0);
@@ -44,10 +49,21 @@ public class MockData {
                 "John", "Perez",
                 "4041234567");
         USERS.put(id7, user1);
+        InMemoryAccountServiceImpl.onboard(id7);
 
-
-        ACCOUNT_EVENTS.put(id7, new Event(id3, "Hired", employeeEntityCatalog, "System", createDate));
-        ACCOUNT_EVENTS.put(id7, new Event(id6, "Drill preparation", buildingEntityCatalog, "System", createDate));
+        var id9 = "0dd5bdbf-40b7-48d2-aa64-8fe6f970b499";
+        var id10 = "0dd5bdbf-40b7-48d2-aa64-8fe6f970b410";
+        var id11 = "0dd5bdbf-40b7-48d2-aa64-8fe6f970b411";
+        ACCOUNT_EVENTS.put(id7, List.of(
+                new Event(id3, "Hired", employeeEntityCatalog, "System", createDate, List.of(
+                        new Task(id9, "task1", "category1", "_for", "responsible", false),
+                        new Task(id10, "task2", "category1", "_for", "responsible", false)
+                )),
+                new Event(id6, "Drill preparation", buildingEntityCatalog, "System", createDate, List.of(
+                        new Task(id11, "drilltask1", "category1", "_for", "responsible", false)
+                ))
+            )
+        );
 
     }
 

@@ -1,4 +1,4 @@
-package us.thinkincode.events.v4.domain;
+package us.thinkincode.events.v1.domain;
 
 public class User  {
 
@@ -11,14 +11,23 @@ public class User  {
     public User() {
     }
 
+    public User(String id, String username, String firstName, String lastName, String phone) {
+        this.id = id;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+
+    }
+
     public User(SignupUser signupUser) {
         this.id = signupUser.getId();
         this.username = signupUser.getUsername();
         this.firstName = signupUser.getFirstName();
         this.lastName = signupUser.getLastName();
         this.phone = signupUser.getPhone();
-
     }
+
     public String getId() {
         return id;
     }

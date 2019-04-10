@@ -1,6 +1,6 @@
-package us.thinkincode.events.v4.domain.catalog;
+package us.thinkincode.events.v1.domain.catalog;
 
-import us.thinkincode.events.v4.domain.CreatedObj;
+import us.thinkincode.events.v1.domain.CreatedObj;
 
 import java.time.LocalDateTime;
 

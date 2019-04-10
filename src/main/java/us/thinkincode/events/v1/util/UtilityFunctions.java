@@ -1,4 +1,4 @@
-package us.thinkincode.events.v4.util;
+package us.thinkincode.events.v1.util;
 
 import java.util.UUID;
 import java.util.function.Supplier;

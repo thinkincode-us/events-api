@@ -1,8 +1,7 @@
-package us.thinkincode.events.v4.service;
+package us.thinkincode.events.v1.service;
 
-import us.thinkincode.events.dto.CreateEventRequest;
-import us.thinkincode.events.v4.domain.Event;
-import us.thinkincode.events.v4.domain.Task;
+import us.thinkincode.events.v1.domain.Event;
+import us.thinkincode.events.v1.domain.Task;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public interface IEventServices {
 
     List<Event> getEvents(String accountId);
 
-    Event getEvent(String eventId);
+    Event getEvent(String accountId, String eventId);
 
     Task createTask(String eventId, Task task, String username);
 

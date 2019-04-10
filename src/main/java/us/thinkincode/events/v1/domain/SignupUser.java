@@ -1,4 +1,4 @@
-package us.thinkincode.events.v4.domain;
+package us.thinkincode.events.v1.domain;
 
 import io.micronaut.security.authentication.providers.UserState;
 
@@ -21,6 +21,10 @@ public class SignupUser implements UserState {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+    }
+
+    public User toUser() {
+        return new User(id, username, firstName, lastName, phone);
     }
 
     public String getId() {

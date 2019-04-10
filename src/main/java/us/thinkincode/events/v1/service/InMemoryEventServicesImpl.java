@@ -1,19 +1,15 @@
-package us.thinkincode.events.v4.service;
+package us.thinkincode.events.v1.service;
 
-import us.thinkincode.events.v4.domain.CreatedObj;
-import us.thinkincode.events.v4.domain.Event;
-import us.thinkincode.events.v4.domain.Task;
+import us.thinkincode.events.v1.domain.Event;
+import us.thinkincode.events.v1.domain.Task;
 
 import javax.inject.Singleton;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static us.thinkincode.events.v4.util.UtilityFunctions.generateUUID;
-import static us.thinkincode.events.v4.repository.InMemoryMappings.ACCOUNT_EVENTS;
-import static us.thinkincode.events.v4.repository.InMemoryMappings.EVENTS_MASTER_CATALOG;
+import static us.thinkincode.events.v1.repository.InMemoryMappings.ACCOUNT_EVENTS;
+import static us.thinkincode.events.v1.util.UtilityFunctions.generateUUID;
 
 @Singleton
 public class InMemoryEventServicesImpl implements IEventServices {
@@ -24,8 +20,9 @@ public class InMemoryEventServicesImpl implements IEventServices {
                 .entrySet()
                 .stream()
                 .filter(entry -> entry.getKey().equals(accountId))
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
+                .findFirst()
+                .orElseGet(() -> Map.entry("", List.of()))
+                .getValue();
     }
 
     @Override
@@ -55,8 +52,12 @@ public class InMemoryEventServicesImpl implements IEventServices {
     }
 
     @Override
-    public Event getEvent(String eventId) {
-        return ACCOUNT_EVENTS.get(eventId);
+    public Event getEvent(String accountId, String eventId) {
+        return ACCOUNT_EVENTS.get(accountId)
+                .stream()
+                .filter(event -> event.getId().equals(eventId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Event not found"));
     }
 
     @Override
@@ -65,7 +66,6 @@ public class InMemoryEventServicesImpl implements IEventServices {
         Optional<Event> event = getPersistedEvent(eventId);
 
         task.setId(generateUUID.get());
-        task.setCreated(new CreatedObj(username, LocalDateTime.now()));
         event.get().addTasks(task);
 
         return task;

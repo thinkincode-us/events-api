@@ -1,7 +1,0 @@
-micronaut:
-    application:
-        name: events-api
-    executors:
-        scheduled:
-            type: scheduled
-            core-pool-size: 30
