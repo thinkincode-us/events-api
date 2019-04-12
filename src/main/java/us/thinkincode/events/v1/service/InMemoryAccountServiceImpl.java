@@ -62,7 +62,8 @@ public class InMemoryAccountServiceImpl implements IAccountService {
                         value.getName(),
                         value.getEntity(),
                         value.getCreated().getByUsername(),
-                        value.getCreated().getDate()
+                        value.getCreated().getDate(),
+                        value.getTasks()
                 )).collect(Collectors.toList());
 
         ACCOUNT_ENTITIES_CATALOG.put(accountId, clonedEntities);

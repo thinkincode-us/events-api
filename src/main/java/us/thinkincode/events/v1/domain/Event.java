@@ -1,6 +1,6 @@
 package us.thinkincode.events.v1.domain;
 
-import us.thinkincode.events.v1.domain.catalog.EntityCatalogItem;
+import us.thinkincode.events.v1.util.UtilityFunctions;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,17 +9,28 @@ import java.util.List;
 public class Event {
 
     private String id;
+    private String parentId;
     private String name;
-    private EntityCatalogItem entity;
+    private String entityId;
+    private String entityName;
     private List<Task> tasks;
     private CreatedObj created;
 
-    public Event(String id, String name, EntityCatalogItem entity, String createdByUsername, LocalDateTime dtCreated, List<Task> tasks) {
+    public Event(String id, String name, String entityId, String entityName, String createdByUsername, LocalDateTime dtCreated, List<Task> tasks) {
         this.id = id;
         this.name = name;
-        this.entity = entity;
+        this.entityId = entityId;
+        this.entityName = entityName;
         this.created =  new CreatedObj(createdByUsername, dtCreated);
         this.tasks = tasks;
+    }
+
+    public Event(String parentId, String name, String entityId, String entityName) {
+        this.id = UtilityFunctions.generateUUID.get();
+        this.parentId = parentId;
+        this.name = name;
+        this.entityId = entityId;
+        this.entityName = entityName;
     }
 
     public void addTasks(Task task) {
@@ -30,6 +41,10 @@ public class Event {
 
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public String getId() {
@@ -56,11 +71,23 @@ public class Event {
         this.created = created;
     }
 
-    public EntityCatalogItem getEntity() {
-        return entity;
+    public String getEntityId() {
+        return entityId;
     }
 
-    public void setEntity(EntityCatalogItem entity) {
-        this.entity = entity;
+    public void setEntityId(String entityId) {
+        this.entityId = entityId;
+    }
+
+    public String getEntityName() {
+        return entityName;
+    }
+
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
+    }
+
+    public String getParentId() {
+        return parentId;
     }
 }

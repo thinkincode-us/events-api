@@ -15,11 +15,12 @@ public class EventCatalogItem {
     private List<Task> tasks;
     private CreatedObj created;
 
-    public EventCatalogItem(String id, String name, EntityCatalogItem entity, String createdByUsername, LocalDateTime dtCreated) {
+    public EventCatalogItem(String id, String name, EntityCatalogItem entity, String createdByUsername, LocalDateTime dtCreated, List<Task> tasks) {
         this.id = id;
         this.name = name;
         this.entity = entity;
         this.created =  new CreatedObj(createdByUsername, dtCreated);
+        this.tasks = tasks;
     }
 
     public void addTasks(Task task) {

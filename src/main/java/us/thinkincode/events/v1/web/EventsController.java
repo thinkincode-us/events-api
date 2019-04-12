@@ -9,7 +9,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
-import us.thinkincode.events.v1.domain.Event;
+import us.thinkincode.events.dto.EventRequest;
 import us.thinkincode.events.v1.domain.Task;
 import us.thinkincode.events.v1.service.IEventServices;
 
@@ -30,23 +30,23 @@ public class EventsController {
                 .body(eventServices.getEvents(accountId));
     }
 
-    @Post(uri = "/events", consumes = MediaType.APPLICATION_JSON)
-    public HttpResponse createEvent(@Value("accountId") String accountId, @Body Event event, Principal principal) {
-        var eventResponse = eventServices.createEvent(accountId, event, principal.getName());
+    @Post(consumes = MediaType.APPLICATION_JSON)
+    public HttpResponse createEvent(@Value("accountId") String accountId, @Body EventRequest eventRequest, Principal principal) {
+        var eventResponse = eventServices.createEvent(accountId, eventRequest.toEvent(), principal.getName());
 
         return HttpResponse
                 .ok()
                 .body(eventResponse);
     }
 
-    @Get("/events/{eventId}")
+    @Get("/{eventId}")
     public HttpResponse getEvent(@Value("accountId") String accountId, @Value("eventId") String eventId) {
         return HttpResponse
                 .ok()
                 .body(eventServices.getEvent(accountId, eventId));
     }
 
-    @Post(uri = "/events/{eventId}", consumes = MediaType.APPLICATION_JSON)
+    @Post(uri = "/{eventId}/tasks", consumes = MediaType.APPLICATION_JSON)
     public HttpResponse createTask(@Value("eventId") String eventId, @Body Task task, Principal principal) {
 
         Task taskResponse = eventServices.createTask(eventId, task, principal.getName());

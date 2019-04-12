@@ -11,3 +11,6 @@ curl -v host:port/login \
 
 ### Use a token
 Just pass `Authorization: Bearer token_value` header to the request.
+
+## OApi spec
+host:8080/swagger/events-api-0.1.yml

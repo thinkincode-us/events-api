@@ -2,17 +2,23 @@ package us.thinkincode.events.v1.service;
 
 import us.thinkincode.events.v1.domain.Event;
 import us.thinkincode.events.v1.domain.Task;
+import us.thinkincode.events.v1.domain.User;
+import us.thinkincode.events.v1.domain.catalog.EventCatalogItem;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import static us.thinkincode.events.v1.repository.InMemoryMappings.ACCOUNT_EVENTS;
+import static us.thinkincode.events.v1.repository.InMemoryMappings.ACCOUNT_EVENTS_CATALOG;
 import static us.thinkincode.events.v1.util.UtilityFunctions.generateUUID;
 
 @Singleton
 public class InMemoryEventServicesImpl implements IEventServices {
+
+    @Inject IAccountService accountService;
 
     @Override
     public List<Event> getEvents(String accountId) {
@@ -27,28 +33,21 @@ public class InMemoryEventServicesImpl implements IEventServices {
 
     @Override
     public Event createEvent(String accountId, Event event, String username) {
-        /* @TODO; implement
-        var entityId = event.getEntity().getId();
-        var entity = ACCOUNT_ENTITIES_CATALOG.get(accountId)
+        User user = accountService.getUsers(username).get(0);
+
+        EventCatalogItem eventCatalogItem = ACCOUNT_EVENTS_CATALOG.get(user.getId())
                 .stream()
-                .filter(entity1 -> entity1.getId().equals(entityId))
+                .filter(catalogItem -> catalogItem.getId().equals(event.getParentId()))
                 .findFirst()
-                .orElseThrow( () -> new IllegalStateException("Entity " + entityId + " not found"));
+                .orElseThrow(() -> new IllegalStateException("Event not found"));
 
-        ACCOUNT_EVENTS_CATALOG.get(accountId)
-                .stream()
-                .filter(eventCatalogItem -> eventCatalogItem.getId())
+        event.setTasks(eventCatalogItem.getTasks());
 
-        var id = generateUUID.get();
-        event.setId(id);
-        event.setEntity(entity);
-        event.setCreated(new CreatedObj(username, LocalDateTime.now()));
+        ACCOUNT_EVENTS.get(user.getId())
+                .add(event);
 
-        return ACCOUNT_EVENTS.put(id, event);
+        return event;
 
-        */
-
-        return null;
     }
 
     @Override
