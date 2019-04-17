@@ -11,8 +11,6 @@ public class SignupUser implements UserState {
     private String lastName;
     private String phone;
 
-    public SignupUser() {
-    }
 
     public SignupUser(String id, String username, String password, String firstName, String lastName, String phone) {
         this.id = id;
