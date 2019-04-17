@@ -34,4 +34,4 @@ micronaut:
                 signatures:
                     secret:
                         generator:
-                            secret: myultrasecret
+                            secret: myultrageneratedsecretsecret-secretsecret
