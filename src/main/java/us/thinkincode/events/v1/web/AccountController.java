@@ -6,7 +6,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
-import us.thinkincode.events.v1.domain.SignupUser;
+import us.thinkincode.events.dto.RegisterRequest;
 import us.thinkincode.events.v1.domain.User;
 import us.thinkincode.events.v1.service.IAccountService;
 
@@ -21,13 +21,13 @@ public class AccountController {
     private IAccountService accountService;
 
     @Post("/register")
-    public User signupUser(@Body SignupUser signupUser) {
-        return accountService.signupUser(signupUser);
+    public User signupUser(@Body RegisterRequest registerRequest) {
+        return accountService.signupUser(registerRequest.toSignupUser());
     }
 
     @Get("/users")
     @Secured(SecurityRule.IS_AUTHENTICATED)
-    public List<User> getUsers(Principal principal) {
+    public  List<User> getUsers(Principal principal) {
         return accountService.getUsers(principal.getName());
     }
 

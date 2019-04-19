@@ -2,7 +2,7 @@ package us.thinkincode.events.dto;
 
 import us.thinkincode.events.v1.domain.Event;
 
-public class EventRequest {
+public class PostEventRequest {
 
     private String eventCatalogId;
     private String name;
