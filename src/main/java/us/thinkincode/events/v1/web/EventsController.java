@@ -9,7 +9,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
-import us.thinkincode.events.dto.PostEventRequest;
+import us.thinkincode.events.v1.dto.PostEventRequest;
 import us.thinkincode.events.v1.domain.Event;
 import us.thinkincode.events.v1.domain.Task;
 import us.thinkincode.events.v1.service.IEventServices;

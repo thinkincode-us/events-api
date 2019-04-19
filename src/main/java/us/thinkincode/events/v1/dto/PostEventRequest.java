@@ -1,4 +1,4 @@
-package us.thinkincode.events.dto;
+package us.thinkincode.events.v1.dto;
 
 import us.thinkincode.events.v1.domain.Event;
 

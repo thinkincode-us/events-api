@@ -7,6 +7,9 @@ public class CreatedObj {
     private String byUsername;
     private LocalDateTime date;
 
+    public CreatedObj() {
+    }
+
     public CreatedObj(String byUsername, LocalDateTime date) {
         this.byUsername = byUsername;
         this.date = date;

@@ -6,7 +6,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
-import us.thinkincode.events.dto.RegisterRequest;
+import us.thinkincode.events.v1.dto.RegisterRequest;
 import us.thinkincode.events.v1.domain.User;
 import us.thinkincode.events.v1.service.IAccountService;
 

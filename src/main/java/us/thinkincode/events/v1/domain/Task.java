@@ -9,6 +9,10 @@ public class Task {
     private String responsible;
     private boolean complete;
 
+    public Task() {
+
+    }
+
     public Task(String id, String name, String category, String _for, String responsible, boolean complete) {
         this.id = id;
         this.name = name;

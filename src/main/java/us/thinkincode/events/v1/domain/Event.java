@@ -2,7 +2,6 @@ package us.thinkincode.events.v1.domain;
 
 import us.thinkincode.events.v1.util.UtilityFunctions;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +15,7 @@ public class Event {
     private List<Task> tasks;
     private CreatedObj created;
 
-    public Event(String id, String name, String entityId, String entityName, String createdByUsername, LocalDateTime dtCreated, List<Task> tasks) {
-        this.id = id;
-        this.name = name;
-        this.entityId = entityId;
-        this.entityName = entityName;
-        this.created =  new CreatedObj(createdByUsername, dtCreated);
-        this.tasks = tasks;
+    public Event() {
     }
 
     public Event(String parentId, String name, String entityId, String entityName) {
