@@ -14,6 +14,8 @@ import javax.inject.Inject;
 import java.security.Principal;
 import java.util.List;
 
+import static us.thinkincode.events.v1.web.WebFunctions.*;
+
 @Controller("/api/v1/{accountId}/catalog")
 @Secured(SecurityRule.IS_AUTHENTICATED)
 public class CatalogController {
@@ -31,6 +33,10 @@ public class CatalogController {
     @Post(uri = "/entities", consumes = MediaType.APPLICATION_JSON)
     public HttpResponse<EntityCatalogItem> createEntity(
             @Value("accountId") String accountId, @Body EntityCatalogItem entity, Principal principal) {
+
+        if (notInAccount.apply(principal, accountId)) {
+            return HttpResponse.unauthorized();
+        }
 
         var responseEntity = catalogServices.createCatalogEntity(accountId, entity, principal.getName());
         return HttpResponse
@@ -61,8 +67,13 @@ public class CatalogController {
     }
 
     @Post(uri = "/events", consumes = MediaType.APPLICATION_JSON)
-    public HttpResponse<EventCatalogItem> createEvent(@Body EventCatalogItem event, Principal principal) {
+    public HttpResponse<EventCatalogItem> createEvent(
+            @Value("accountId") String accountId, @Body EventCatalogItem event, Principal principal) {
         var eventResponse = catalogServices.createCatalogEvent(event, principal.getName());
+
+        if (notInAccount.apply(principal, accountId)) {
+            return HttpResponse.unauthorized();
+        }
 
         return HttpResponse
                 .<EventCatalogItem>ok()
