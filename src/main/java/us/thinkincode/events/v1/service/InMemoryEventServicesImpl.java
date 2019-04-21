@@ -7,6 +7,7 @@ import us.thinkincode.events.v1.domain.catalog.EventCatalogItem;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,6 +20,7 @@ import static us.thinkincode.events.v1.util.UtilityFunctions.generateUUID;
 public class InMemoryEventServicesImpl implements IEventServices {
 
     @Inject IAccountService accountService;
+    @Inject IEventsPDFService eventsPDFService;
 
     @Override
     public List<Event> getEvents(String accountId) {
@@ -29,6 +31,11 @@ public class InMemoryEventServicesImpl implements IEventServices {
                 .findFirst()
                 .orElseGet(() -> Map.entry("", List.of()))
                 .getValue();
+    }
+
+    @Override
+    public InputStream getEventsPdf(String accountId) {
+        return eventsPDFService.toPdf(getEvents(accountId));
     }
 
     @Override
